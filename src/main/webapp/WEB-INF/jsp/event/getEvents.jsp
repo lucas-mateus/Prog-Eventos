@@ -40,7 +40,7 @@
                                 <a href="events/id/${event.uuid}">Editar</a>
                             </td>
                             <td>
-                                <a href="events/delete/${event.uuid}">Excluir</a>
+                                <a href="events/delete/id/${event.uuid}">Excluir</a>
                             </td>
 
 

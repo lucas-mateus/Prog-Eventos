@@ -44,6 +44,10 @@ public class EventDB {
         eventList.set(position, event);
         
     }
+    
+    public void remove(Event event){
+        eventList.remove(event);
+    }
 
     public List<Event> listAll(){
         return eventList;

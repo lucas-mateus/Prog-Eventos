@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.eventos.app;
+package models;
 
 /**
  *
- * @author natal
+ * @author Lucas
  */
-
 public class User {
    private String name;
    private String cpf;
@@ -54,4 +53,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((User)obj).getCpf().equals(this.cpf); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
 }

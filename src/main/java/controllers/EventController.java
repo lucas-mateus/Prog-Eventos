@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import infrastructure.EventDB;
+import java.util.Scanner;
 import javax.inject.Inject;
 import models.Event;
 
@@ -35,10 +36,6 @@ public class EventController {
     @Get("")
     public void getEvents() {
         result.include("eventsList", this.eventDB.listAll());
-        for(Event e : eventDB.listAll()){
-            System.out.println("id dos eventos:::::::::"+e.getUuid());
-            System.out.println("titulo ::::::::  "+e.getTitle());
-        }
     }
 
     @Post("save")
@@ -46,11 +43,11 @@ public class EventController {
         this.eventDB.save(event);
         result.redirectTo(this).getEvents();
     }
-    
+
     @Get("id/{id}")
-    public void getEventId(String id){
+    public void getEventId(String id) {
         result.include("eventToUpdate", this.eventDB.getById(id));
-        
+
     }
 
     @Post("update")
@@ -59,8 +56,16 @@ public class EventController {
         result.redirectTo(this).getEvents();
     }
 
-    @Post("delete")
-    public void deleteEvent() {
+    @Get("delete/id/{id}")
+    public void deleteById(String id) {
+        result.include("eventToDelete", this.eventDB.getById(id));
 
     }
+
+    @Post("delete")
+    public void deleteEvent(Event event) {
+        this.eventDB.remove(event);
+        result.redirectTo(this).getEvents();
+    }
+
 }

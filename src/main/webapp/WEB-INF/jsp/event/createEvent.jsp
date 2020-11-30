@@ -19,31 +19,10 @@
 
         <div class="container">
             <form class="mt-4" action="${path}/events/save" method="POST">
-
-                <div class="form-group">
-                    <label for="data">Data</label>
-                    <input type="text" class="form-control" id="data" 
-                           placeholder="Data" name="event.date" value="${event.date}">
-                </div>
-                <div class="form-group">
-                    <label for="titulo">Titulo</label>
-                    <input type="text" class="form-control" id="titulo" 
-                           placeholder="Titulo do evento" name="event.title" value="${event.title}">
-                </div>
-                <div class="form-group">
-                    <label for="local">Local</label>
-                    <input type="text" class="form-control" id="local"  
-                           placeholder="Digite o local" name="event.place" value="${event.place}">
-                </div>
-                <div class="form-group">
-                    <label for="organizador">Organizador</label>
-                    <input type="text" class="form-control" id="organizador" 
-                           placeholder="Informe o organizador" name="event.owner" value="${event.owner}">
-                </div>
-
+                <%@include file="../templates/formFieldsEvent.jsp" %>
                 <button type="submit" class="btn btn-primary">Cadastrar Evento</button>
             </form>
-
+            <br>
             <h4 class="text-danger">${errorMessage}</h4>
         </div>
 

@@ -53,7 +53,7 @@ public class EventController {
 
     @Get("id/{id}")
     public void getEventId(String id) {
-        result.include("eventToUpdate", this.eventApplication.getById(id));
+        result.include("event", this.eventApplication.getById(id));
 
     }
 
@@ -65,7 +65,7 @@ public class EventController {
 
     @Get("delete/id/{id}")
     public void deleteById(String id) {
-        result.include("eventToDelete", this.eventApplication.getById(id));
+        result.include("event", this.eventApplication.getById(id));
 
     }
 

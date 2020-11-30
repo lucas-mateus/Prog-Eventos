@@ -17,33 +17,11 @@
         <c:set var="path" value="${pageContext.request.contextPath}"/>
         <div class="container">
             <br>
-            <h2>Você está excluindo o evento: ${eventToDelete.title}</h2>
+            <h2>Você está excluindo o evento: ${event.title}</h2>
             <br>
             <form class="mt-4" action="${path}/events/delete" method="POST">
-
-                <input type="hidden" name="event.uuid" value="${eventToDelete.uuid}">
-
-                <div class="form-group">
-                    <label for="data">Data</label>
-                    <input type="text" class="form-control" id="data" 
-                           placeholder="Data" name="event.date" value="${eventToDelete.date}">
-                </div>
-                <div class="form-group">
-                    <label for="titulo">Titulo</label>
-                    <input type="text" class="form-control" id="titulo" 
-                           placeholder="Titulo do evento" name="event.title" value="${eventToDelete.title}">
-                </div>
-                <div class="form-group">
-                    <label for="local">Local</label>
-                    <input type="text" class="form-control" id="local"  
-                           placeholder="Digite o local" name="event.place" value="${eventToDelete.place}">
-                </div>
-                <div class="form-group">
-                    <label for="organizador">Organizador</label>
-                    <input type="text" class="form-control" id="organizador" 
-                           placeholder="Informe o organizador" name="event.owner" value="${eventToDelete.owner}">
-                </div>
-
+                <input type="hidden" name="event.uuid" value="${event.uuid}">
+                <%@include file="../templates/formFieldsEvent.jsp" %>
                 <button type="submit" class="btn btn-danger">Excluir Evento</button>
             </form>
         </div>

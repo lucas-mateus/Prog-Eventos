@@ -3,7 +3,7 @@
     Created on : 28 de nov. de 2020, 04:17:27
     Author     : Lucas
 --%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,12 +14,12 @@
         <title>Form de Exc</title>
     </head>
     <body>
-        
+        <c:set var="path" value="${pageContext.request.contextPath}"/>
         <div class="container">
             <br>
             <h2>Você está excluindo o evento: ${eventToDelete.title}</h2>
             <br>
-            <form class="mt-4" action="/Eventos-App/events/delete" method="POST">
+            <form class="mt-4" action="${path}/events/delete" method="POST">
 
                 <input type="hidden" name="event.uuid" value="${eventToDelete.uuid}">
 

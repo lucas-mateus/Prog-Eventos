@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package domain.event;
 
 import java.util.UUID;
 
@@ -12,13 +12,14 @@ import java.util.UUID;
  * @author Lucas
  */
 public class Event {
+
     private String uuid;
     private String date;
     private String title;
     private String place;
     private String owner;
-    
-    public Event(){
+
+    public Event() {
         this.uuid = UUID.randomUUID().toString();
     }
 
@@ -64,11 +65,7 @@ public class Event {
 
     @Override
     public boolean equals(Object obj) {
-        return ((Event)obj).getUuid().equals(this.uuid); //To change body of generated methods, choose Tools | Templates.
+        return ((Event) obj).getUuid().equals(this.uuid); //To change body of generated methods, choose Tools | Templates.
     }
-    
-     
-    
-
 
 }

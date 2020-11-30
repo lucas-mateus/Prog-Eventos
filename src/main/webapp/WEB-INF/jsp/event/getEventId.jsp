@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,12 +15,12 @@
         <title>Form de Att</title>
     </head>
     <body>
-        
+        <c:set var="path" value="${pageContext.request.contextPath}"/>
         <div class="container">
             <br>
             <h2>Você está atualizando o evento: ${eventToUpdate.title}</h2>
             <br>
-            <form class="mt-4" action="/Eventos-App/events/update" method="POST">
+            <form class="mt-4" action="${path}/events/update" method="POST">
 
                 <input type="hidden" name="event.uuid" value="${eventToUpdate.uuid}">
 

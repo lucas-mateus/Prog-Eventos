@@ -8,7 +8,7 @@ package infrastructure;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
-import models.Event;
+import domain.event.Event;
 
 /**
  *
@@ -38,18 +38,29 @@ public class EventDB {
 
         return event;
     }
-    
-    public void update(Event event){
+
+    public Event findByDate(String date) {
+        Event event = null;
+        for (Event e : eventList) {
+            if (e.getDate().equals(date)) {
+                event = e;
+            }
+        }
+
+        return event;
+    }
+
+    public void update(Event event) {
         int position = this.eventList.indexOf(event);
         eventList.set(position, event);
-        
+
     }
-    
-    public void remove(Event event){
+
+    public void remove(Event event) {
         eventList.remove(event);
     }
 
-    public List<Event> listAll(){
+    public List<Event> listAll() {
         return eventList;
     }
 }

@@ -5,15 +5,16 @@
  */
 package controllers;
 
+import application.EventApplication;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import infrastructure.EventDB;
-import java.util.Scanner;
 import javax.inject.Inject;
-import models.Event;
+import domain.event.Event;
+import exceptions.BusinessException;
 
 /**
  *
@@ -24,10 +25,10 @@ import models.Event;
 public class EventController {
 
     @Inject
-    private Result result;
+    private EventApplication eventApplication;
 
     @Inject
-    private EventDB eventDB;
+    private Result result;
 
     @Get("create-event")
     public void createEvent() {
@@ -35,36 +36,42 @@ public class EventController {
 
     @Get("")
     public void getEvents() {
-        result.include("eventsList", this.eventDB.listAll());
+        result.include("eventsList", this.eventApplication.listAll());
     }
 
     @Post("save")
     public void persistEvent(Event event) {
-        this.eventDB.save(event);
-        result.redirectTo(this).getEvents();
+        try {
+            this.eventApplication.save(event);
+            result.redirectTo(this).getEvents();
+        } catch (BusinessException e) {
+            result.include("event", event);
+            result.include("errorMessage", e.getMessage());
+            result.redirectTo(this).createEvent();
+        }
     }
 
     @Get("id/{id}")
     public void getEventId(String id) {
-        result.include("eventToUpdate", this.eventDB.getById(id));
+        result.include("eventToUpdate", this.eventApplication.getById(id));
 
     }
 
     @Post("update")
     public void updateEvent(Event event) {
-        this.eventDB.update(event);
+        this.eventApplication.update(event);
         result.redirectTo(this).getEvents();
     }
 
     @Get("delete/id/{id}")
     public void deleteById(String id) {
-        result.include("eventToDelete", this.eventDB.getById(id));
+        result.include("eventToDelete", this.eventApplication.getById(id));
 
     }
 
     @Post("delete")
     public void deleteEvent(Event event) {
-        this.eventDB.remove(event);
+        this.eventApplication.remove(event);
         result.redirectTo(this).getEvents();
     }
 

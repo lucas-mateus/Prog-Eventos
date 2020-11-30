@@ -12,8 +12,7 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import infrastructure.UserDB;
 import javax.inject.Inject;
-import models.User;
-import web.annotations.Auth;
+import domain.user.User;
 
 /**
  *

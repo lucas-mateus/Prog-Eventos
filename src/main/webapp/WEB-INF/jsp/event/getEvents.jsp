@@ -14,6 +14,7 @@
         <title>Todos os eventos</title>
     </head>
     <body>
+        <c:set var="path" value="${pageContext.request.contextPath}"/>
         <div class="container">
             <br>
             <h3>Esses são os eventos cadastrados:</h3>
@@ -37,10 +38,10 @@
                             <td>${event.place}</td>
                             <td>${event.owner}</td>
                             <td>
-                                <a href="events/id/${event.uuid}">Editar</a>
+                                <a href="${path}/events/id/${event.uuid}">Editar</a>
                             </td>
                             <td>
-                                <a href="events/delete/id/${event.uuid}">Excluir</a>
+                                <a href="${path}/events/delete/id/${event.uuid}">Excluir</a>
                             </td>
 
 

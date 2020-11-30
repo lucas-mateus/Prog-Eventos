@@ -8,7 +8,7 @@ package infrastructure;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
-import models.User;
+import domain.user.User;
 
 /**
  *

@@ -5,14 +5,17 @@
  */
 package controllers;
 
+import application.EventApplication;
+import application.UserApplication;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
-import infrastructure.UserDB;
-import javax.inject.Inject;
 import domain.user.User;
+import exceptions.BusinessException;
+import javax.inject.Inject;
+import web.annotations.Auth;
 
 /**
  *
@@ -20,31 +23,56 @@ import domain.user.User;
  */
 @Controller
 @Path("user")
+
 public class UserController {
-    
+
     @Inject
     private Result result;
     
     @Inject
-    private UserDB userDB;
-  
+    private EventApplication eventApp;
+
+    @Inject
+    private UserApplication userApplication;
+
     @Get("new")
-    public void newUser(){
+    public void newUser() {
     }
     
+    @Get("")
+    @Auth
+    public void userPage(){
+    }
+
     @Post("create")
-    public void persistUser(User user){
-        userDB.save(user);
-        result.redirectTo(EventController.class).getEvents();
+    public void persistUser(User user) {
+        try {
+            this.userApplication.save(user);
+            result.include("user", user);
+            result.redirectTo(this).userPage();
+        } catch(BusinessException e){
+            result.include("errorMessage",e.getMessage());
+            result.include("user", user);
+            result.redirectTo(this).newUser();
+        }
     }
-    
+
+    @Get("cpf/{cpf}")
+    @Auth
+    public void getUserCpf(String cpf) {
+        result.include("user", this.userApplication.getByCPf(cpf));
+    }
+
     @Post("update")
-    public void update(User user){
-        this.userDB.update(user);
+    @Auth
+    public void update(User user) {
+        this.userApplication.update(user);
+        result.redirectTo(this).userPage();
     }
-    
+
     @Post("remove")
-    public void remove(User user){
-        this.userDB.remove(user);
+    @Auth
+    public void remove(User user) {
+        this.userApplication.remove(user);
     }
 }

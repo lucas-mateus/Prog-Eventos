@@ -11,7 +11,6 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
-import infrastructure.EventDB;
 import javax.inject.Inject;
 import domain.event.Event;
 import exceptions.BusinessException;

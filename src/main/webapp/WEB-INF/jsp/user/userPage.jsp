@@ -17,15 +17,15 @@
     <body>
         <div class="container">
             <c:choose>
-                <c:when test="${!usuarioLogado==null}">
+                <c:when test="${authSession.user == null }">
                     <h3>Acesso negado!</h3>
                     <p>Por favor realize login para acessar esta página.</p>
                     <a href="login.jsp">Login</a>
                 </c:when>
-                <c:when test="${true}">
+                <c:when test="${authSession.user!=null}">
                     <h2>Seja bem vindo(a)!</h2>
-                    <p>Usuário logado: ${user.name}<p>
-                    <p>CPF: ${user.cpf}</p><br>
+                    <p>Usuário logado: ${authSession.user.name}<p>
+                    <p>CPF: ${authSession.user.cpf}</p><br>
                     <p>Para cadastrar um evento clique <a href="${path}/events/create-event">aqui</a></p>
                     <br>
                     <h3>Esses são os eventos cadastrados</h3>

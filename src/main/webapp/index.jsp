@@ -44,7 +44,7 @@
                 <a href="${path}/user/new" class="text-white">Cadastre-se</a>
             </button>
             <button type="button" class="btn btn-secondary btn-lg btn-block">
-                <a href="${path}/user/login" class="text-white">Entrar</a>
+                <a href="${path}/login" class="text-white">Entrar</a>
             </button>
         </div>
     </body>

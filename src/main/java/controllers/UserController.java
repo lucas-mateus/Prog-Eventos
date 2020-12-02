@@ -25,7 +25,7 @@ import web.annotations.Auth;
 @Path("user")
 
 public class UserController {
-
+    
     @Inject
     private Result result;
     
@@ -48,8 +48,8 @@ public class UserController {
     public void persistUser(User user) {
         try {
             this.userApplication.save(user);
-            result.include("user", user);
-            result.redirectTo(this).userPage();
+            //this.authSession.setUser(user);
+            result.redirectTo(AuthController.class).login();
         } catch(BusinessException e){
             result.include("errorMessage",e.getMessage());
             result.include("user", user);

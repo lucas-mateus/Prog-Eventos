@@ -50,8 +50,8 @@ public class UserDB {
     }
 
     public void update(User user) {
-        int position = userList.indexOf(user);
-        this.userList.add(position, user);
+        int position = this.userList.indexOf(user);
+        this.userList.set(position, user);
     }
 
     public void remove(User user) {

@@ -30,9 +30,6 @@ public class UserController {
     private Result result;
 
     @Inject
-    private EventApplication eventApp;
-
-    @Inject
     private UserApplication userApplication;
 
     @Get("new")
@@ -48,7 +45,6 @@ public class UserController {
     public void persistUser(User user) {
         try {
             this.userApplication.save(user);
-            //this.authSession.setUser(user);
             result.redirectTo(AuthController.class).login();
         } catch (BusinessException e) {
             result.include("errorMessage", e.getMessage());
@@ -57,9 +53,9 @@ public class UserController {
         }
     }
 
-    @Get("cpf/{cpf}")
+    @Get("update/{cpf}")
     @Auth
-    public void getUserCpf(String cpf) {
+    public void getUserToUpdate(String cpf) {
         result.include("user", this.userApplication.getByCPf(cpf));
     }
 
@@ -70,9 +66,23 @@ public class UserController {
         result.redirectTo(this).userPage();
     }
 
+    @Get("remove/{cpf}")
+    @Auth
+    public void getUserToRemove(String cpf) {
+        result.include("user", this.userApplication.getByCPf(cpf));
+    }
+
     @Post("remove")
     @Auth
     public void remove(User user) {
-        this.userApplication.remove(user);
+        try {
+            this.userApplication.remove(user);
+            result.redirectTo("http://localhost:8080/Eventos-App/");
+        } catch (BusinessException e) {
+            result.include("errorMessage", e.getMessage());
+            result.include("alertIcon", "<img style=\"width:50px; height:50px\" src=\"/Eventos-App/images/alert-icon.png\">");
+            result.redirectTo(this).getUserToRemove(user.getCpf());
+        }
+
     }
 }

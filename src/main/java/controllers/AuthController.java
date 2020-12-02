@@ -9,8 +9,11 @@ import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import domain.event.Event;
 import domain.user.User;
+import infrastructure.EventDB;
 import infrastructure.UserDB;
+import java.util.List;
 import javax.inject.Inject;
 import web.components.AuthSession;
 
@@ -23,6 +26,9 @@ public class AuthController {
 
     @Inject
     private UserDB userDB;
+    
+    @Inject 
+    private EventDB eventDB;
 
     @Inject
     private Result result;
@@ -33,13 +39,20 @@ public class AuthController {
     @Get("login")
     public void login() {
     }
+    
+    @Get("logout")
+    public void logout(){
+        this.authSession = null;
+    }
 
     @Post("auth")
     public void auth(User user) {
         User userFromDB = this.userDB.getUserByEmail(user.getEmail());
+        List<Event> events = this.eventDB.listAll();
         if (userFromDB != null) {
             if (userFromDB.getPassword().equals(user.getPassword())) {
                 this.authSession.setUser(userFromDB);
+                this.authSession.setEventList(events);
                 result.redirectTo(UserController.class).userPage();
             } else {
                 result.include("errorMessage", "Email ou senha inválidos");

@@ -16,48 +16,54 @@
     </head>
     <body>
         <div class="container">
-            <c:choose>
-                <c:when test="${authSession.user == null }">
-                    <h3>Acesso negado!</h3>
-                    <p>Por favor realize login para acessar esta página.</p>
-                    <a href="login.jsp">Login</a>
-                </c:when>
-                <c:when test="${authSession.user!=null}">
-                    <h2>Seja bem vindo(a)!</h2>
-                    <p>Usuário logado: ${authSession.user.name}<p>
-                    <p>CPF: ${authSession.user.cpf}</p><br>
-                    <p>Para cadastrar um evento clique <a href="${path}/events/create-event">aqui</a></p>
-                    <br>
-                    <h3>Esses são os eventos cadastrados</h3>
-                    <table class="table">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Data</th>
-                                <th scope="col">Titulo</th>
-                                <th scope="col">Local</th>
-                                <th scope="col">Organizador</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="event" items="${eventList}">
-                                <tr>
-                                    <th scope="row">${event.date}</th>
-                                    <td>${event.title}</td>
-                                    <td>${event.place}</td>
-                                    <td>${event.owner}</td>
+            <h2>Seja bem vindo(a)!</h2>
+            <p>Usuário logado: ${authSession.user.name}<p>
+            <p>CPF: ${authSession.user.cpf}</p><br>
+            <p>Para cadastrar um evento clique <a href="${path}/events/create-event">aqui</a></p>
+            <br>
+            <h3>Esses são os eventos cadastrados</h3>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Data</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Local</th>
+                        <th scope="col">Organizador</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="event" items="${authSession.eventList}">
+                        <tr>
+                            <th scope="row">${event.date}</th>
+                            <td>${event.title}</td>
+                            <td>${event.place}</td>
+                            <td>${event.owner}</td>
+                            <c:choose>
+                                <c:when test="${event.owner.equalsIgnoreCase(authSession.user.name)}">
                                     <td>
                                         <a href="${path}/events/id/${event.uuid}">Editar</a>
                                     </td>
                                     <td>
                                         <a href="${path}/events/delete/id/${event.uuid}">Excluir</a>
                                     </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                                </c:when> 
+                                <c:otherwise>
+                                    <td>
+                                        <span>-</span>
+                                    </td>
+                                    <td>
+                                        <span>-</span>
+                                    </td>
+                                </c:otherwise>
 
-                </c:when>
-            </c:choose>
+                            </c:choose>
+
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

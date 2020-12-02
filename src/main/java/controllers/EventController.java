@@ -14,6 +14,7 @@ import br.com.caelum.vraptor.Result;
 import javax.inject.Inject;
 import domain.event.Event;
 import exceptions.BusinessException;
+import web.annotations.Auth;
 
 /**
  *
@@ -21,6 +22,7 @@ import exceptions.BusinessException;
  */
 @Controller
 @Path("events")
+@Auth
 public class EventController {
 
     @Inject
@@ -39,10 +41,11 @@ public class EventController {
     }
 
     @Post("save")
+    @Auth
     public void persistEvent(Event event) {
         try {
             this.eventApplication.save(event);
-            result.redirectTo(this).getEvents();
+            result.redirectTo(UserController.class).userPage();
         } catch (BusinessException e) {
             result.include("event", event);
             result.include("errorMessage", e.getMessage());
@@ -59,7 +62,7 @@ public class EventController {
     @Post("update")
     public void updateEvent(Event event) {
         this.eventApplication.update(event);
-        result.redirectTo(this).getEvents();
+        result.redirectTo(UserController.class).userPage();
     }
 
     @Get("delete/id/{id}")
@@ -71,7 +74,7 @@ public class EventController {
     @Post("delete")
     public void deleteEvent(Event event) {
         this.eventApplication.remove(event);
-        result.redirectTo(this).getEvents();
+        result.redirectTo(UserController.class).userPage();
     }
 
 }

@@ -25,10 +25,10 @@ import web.annotations.Auth;
 @Path("user")
 
 public class UserController {
-    
+
     @Inject
     private Result result;
-    
+
     @Inject
     private EventApplication eventApp;
 
@@ -38,10 +38,10 @@ public class UserController {
     @Get("new")
     public void newUser() {
     }
-    
+
     @Get("")
     @Auth
-    public void userPage(){
+    public void userPage() {
     }
 
     @Post("create")
@@ -50,8 +50,8 @@ public class UserController {
             this.userApplication.save(user);
             //this.authSession.setUser(user);
             result.redirectTo(AuthController.class).login();
-        } catch(BusinessException e){
-            result.include("errorMessage",e.getMessage());
+        } catch (BusinessException e) {
+            result.include("errorMessage", e.getMessage());
             result.include("user", user);
             result.redirectTo(this).newUser();
         }

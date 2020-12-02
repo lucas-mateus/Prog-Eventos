@@ -5,8 +5,10 @@
  */
 package web.components;
 
+import domain.event.Event;
 import domain.user.User;
 import java.io.Serializable;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -19,6 +21,15 @@ import javax.inject.Named;
 public class AuthSession implements Serializable {
     
     private User user;
+    private List<Event> eventList;
+
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
+    }
 
     public User getUser() {
         return user;

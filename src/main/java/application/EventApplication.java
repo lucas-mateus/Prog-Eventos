@@ -38,7 +38,7 @@ public class EventApplication {
 
     }
 
-    public Event findByDate(String id) {
+    public  List<Event> findByDate(String id) {
         return this.eventService.findByDate(id);
 
     }

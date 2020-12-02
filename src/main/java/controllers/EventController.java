@@ -14,6 +14,7 @@ import br.com.caelum.vraptor.Result;
 import javax.inject.Inject;
 import domain.event.Event;
 import exceptions.BusinessException;
+import java.util.List;
 import web.annotations.Auth;
 
 /**
@@ -53,28 +54,37 @@ public class EventController {
         }
     }
 
-    @Get("id/{id}")
-    public void getEventId(String id) {
+    @Get("update/id/{id}")
+    @Auth
+    public void getEventToUpdate(String id) {
         result.include("event", this.eventApplication.getById(id));
-
     }
 
     @Post("update")
+    @Auth
     public void updateEvent(Event event) {
         this.eventApplication.update(event);
         result.redirectTo(UserController.class).userPage();
     }
 
     @Get("delete/id/{id}")
-    public void deleteById(String id) {
+    @Auth
+    public void getEventToDelete(String id) {
         result.include("event", this.eventApplication.getById(id));
-
     }
 
     @Post("delete")
-    public void deleteEvent(Event event) {
+    @Auth
+    public void delete(Event event) {
         this.eventApplication.remove(event);
         result.redirectTo(UserController.class).userPage();
+    }
+
+    @Get("bydate")
+    @Auth
+    public void eventsByDate(String date) {
+        result.include("events", this.eventApplication.findByDate(date));
+        result.include("date",date);
     }
 
 }

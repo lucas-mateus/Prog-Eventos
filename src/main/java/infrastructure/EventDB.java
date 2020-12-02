@@ -39,20 +39,20 @@ public class EventDB {
         return event;
     }
 
-    public Event findByDate(String date) {
-        Event event = null;
-        for (Event e : eventList) {
+    public List<Event> findByDate(String date) {
+        List<Event> eventsByDate = new ArrayList<>();
+        for (Event e : this.eventList) {
             if (e.getDate().equals(date)) {
-                event = e;
+                System.out.println("evento circulando: " + e.getDate());
+                eventsByDate.add(e);
             }
         }
-
-        return event;
+        return eventsByDate;
     }
 
     public void update(Event event) {
         int position = this.eventList.indexOf(event);
-        eventList.set(position, event);
+        this.eventList.set(position, event);
 
     }
 

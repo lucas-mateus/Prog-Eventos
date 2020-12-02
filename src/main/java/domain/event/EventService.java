@@ -41,9 +41,9 @@ public class EventService {
         return this.eventDB.getById(id);
     }
 
-    public Event findByDate(String date) {
-        Event event = this.eventDB.findByDate(date);
-        return event;
+    public List<Event> findByDate(String date) {
+        List<Event> events = this.eventDB.findByDate(date);
+        return events;
     }
 
     public List<Event> listAll() {

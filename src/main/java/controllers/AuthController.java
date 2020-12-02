@@ -43,6 +43,7 @@ public class AuthController {
     @Get("logout")
     public void logout(){
         this.authSession = null;
+        result.redirectTo(this).login();
     }
 
     @Post("auth")

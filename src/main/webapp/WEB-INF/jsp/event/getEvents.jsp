@@ -38,7 +38,7 @@
                             <td>${event.place}</td>
                             <td>${event.owner}</td>
                             <td>
-                                <a href="${path}/events/id/${event.uuid}">Editar</a>
+                                <a href="${path}/events/update/id/${event.uuid}">Editar</a>
                             </td>
                             <td>
                                 <a href="${path}/events/delete/id/${event.uuid}">Excluir</a>

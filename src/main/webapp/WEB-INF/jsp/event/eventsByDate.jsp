@@ -1,31 +1,24 @@
 <%-- 
-    Document   : userPage
-    Created on : 30 de nov. de 2020, 16:58:12
+    Document   : eventsByDate
+    Created on : 2 de dez. de 2020, 04:38:52
     Author     : Lucas
 --%>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <c:set var="path" value="${pageContext.request.contextPath}" />
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@include file="../templates/boostrapLinks.jsp"%>
-        <title>Home Page</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"> 
+        <title>Eventos Filtrados</title>
     </head>
     <body>
         <div id="navbar">
             <%@include file="../templates/navbarUser.jsp" %>
         </div>
         <div class="container">
-            <div class="mt-4">
-                <h2>Seja bem vindo(a)!</h2>
-                <h5>Para cadastrar um evento clique <a href="${path}/events/create-event">aqui</a></h5>
-                <br>
-                <h3>Esses são os eventos cadastrados</h3>  
-            </div>
-            <table class="table">
+            <h5 class="mt-4">Esses são os eventos programados para a data que você procurou: ${date}</h5>
+             <table class="table mt-4">
                 <thead class="thead-light">
                     <tr>
                         <th scope="col">Data</th>
@@ -67,9 +60,6 @@
                     </c:forEach>
                 </tbody>
             </table>
-        </div>      
-
-
+        </div>
     </body>
 </html>
-
